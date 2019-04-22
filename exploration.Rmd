@@ -22,9 +22,7 @@ ex17 <- read.csv("./data/2017/survey_results_schema.csv", header=F)
 
 ```{r e2018}
 
-df18 <- s18 %>% mutate(
-                      id = 2018E5 + seq.int(nrow(df18)), year= 2018,
-                       Student = case_when(grepl("^N",   Student) ~ "no",
+df18 <- s18 %>% mutate(Student = case_when(grepl("^N",   Student) ~ "no",
                                            grepl("full", Student) ~ "full-time",
                                            grepl("part", Student) ~ "part-time",
                                            TRUE ~ NA_character_),
@@ -109,11 +107,10 @@ df18 <- s18 %>% mutate(
                           
                                                 
                        ) %>% 
-                select(id, year,
-                       Country, Student, Education, Undergrad, Employment, YearsCoding, YearsCodingProf, 
+                select(Country, Student, Education, Undergrad, Employment, YearsCoding, YearsCodingProf, 
                        JobYear, JobSearchStatus,TimeAfterBootcamp,
-                       DevType, Language =  LanguageWorkedWith, Platform = PlatformWorkedWith, Database = DatabaseWorkedWith, Framework = FrameworkWorkedWith,
-                       Salary, Currency, #ConvertedSalary, SalaryType, 
+                       DevType, LanguageWorkedWith, PlatformWorkedWith, DatabaseWorkedWith, FrameworkWorkedWith,
+                       Salary, CurrencySymbol, ConvertedSalary, SalaryType, 
                        EducationParents, Sex)
 
 ```
@@ -121,7 +118,6 @@ df18 <- s18 %>% mutate(
 ```{r e2017}
 
 df17 <- s17 %>% mutate(
-                    id = 2017E5 + seq.int(nrow(df17)), year= 2017,
                     Student = case_when(grepl("^N",   University) ~ "no",
                                         grepl("full", University) ~ "full-time",
                                         grepl("part", University) ~ "part-time",
@@ -213,23 +209,12 @@ df17 <- s17 %>% mutate(
                                           grepl("Female", Gender) ~ "Female",
                                           TRUE ~ NA_character_),
                     
-                          JobYear = case_when(grepl("^L",         LastNewJob) ~ "<1",
-                                              grepl("^Between 1", LastNewJob) ~ "1-2",
-                                              grepl("^Between 2", LastNewJob) ~ "2-4",
-                                              grepl("^More",      LastNewJob) ~ "4+",
-                                              TRUE ~ NA_character_),
                           
-                          JobSearchStatus = case_when(grepl("open",     JobSeekingStatus) ~ "Open",
-                                                      grepl("interest", JobSeekingStatus) ~ "Uninterested",
-                                                      grepl("job$",     JobSeekingStatus) ~ "Active",
-                                                      TRUE ~ NA_character_)
+  
   
 ) %>% 
-  select(id,year,
-         Country, Student, Education, Undergrad, Employment, YearsCoding, YearsCodingProf,
-         JobYear, JobSearchStatus, TimeAfterBootcamp,
-         DevType = DeveloperType, Language = HaveWorkedLanguage, #NonDevType = NonDeveloperType,  
-         Platform = HaveWorkedPlatform, Database = HaveWorkedDatabase, Framework = HaveWorkedFramework,
+  select(Country, Student, Education, Undergrad, Employment, YearsCoding, YearsCodingProf,
+         TimeAfterBootcamp,
          Salary, Currency,
          EducationParents, Sex)
 
@@ -240,6 +225,7 @@ df17 <- s17 %>% mutate(
 
 
 ```
+
 
 
 
