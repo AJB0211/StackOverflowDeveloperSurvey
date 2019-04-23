@@ -1,7 +1,6 @@
 suppressMessages(suppressWarnings(library(tidyverse)))
 
 #### READ ####
-setwd("~/Documents/NYCDSA/projects/R_shiny/")
 s18 <- read.csv("./data/2018/survey_results_public.csv")
 s17 <- read.csv("./data/2017/survey_results_public.csv")
 s16 <- read.csv("./data/2016/2016 Stack Overflow Survey Responses.csv")
@@ -91,7 +90,8 @@ df18 <- s18 %>% mutate(
                                 grepl("^Less",      TimeAfterBootcamp) ~ "<1 Month",
                                 grepl("^Long",      TimeAfterBootcamp) ~ ">1 Year",
                                 grepl("haven",      TimeAfterBootcamp) ~ "Searching",
-                                TRUE ~ NA_character_)
+                                TRUE ~ NA_character_),
+  Salary = round(as.numeric(Salary))
   
   
   
@@ -209,7 +209,9 @@ df17 <- s17 %>% mutate(
   JobSearchStatus = case_when(grepl("open",     JobSeekingStatus) ~ "Open",
                               grepl("interest", JobSeekingStatus) ~ "Uninterested",
                               grepl("job$",     JobSeekingStatus) ~ "Active",
-                              TRUE ~ NA_character_)
+                              TRUE ~ NA_character_),
+  
+  Salary=round(as.numeric(Salary))
   
 ) %>% 
   select(id,year,
@@ -223,15 +225,6 @@ df17 <- s17 %>% mutate(
 
 
 #### 2016 ####
-
-
-
-
-
-
-#### Clean Space ####
-# Free memory
-rm(s17,s18,s16,ex18,ex17)
 
 
 

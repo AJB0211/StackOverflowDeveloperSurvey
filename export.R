@@ -39,7 +39,3 @@ RSQLite::dbWriteTable(conn = conn,
 # close connection
 RSQLite::dbDisconnect(conn)
 
-
-
-# clear memory
-rm(xFrame,langFrame,devFrame,dbFrame,fwFrame,conn)

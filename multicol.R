@@ -7,6 +7,7 @@ l17 <- df17 %>% select(id,year,Language) %>% separate_rows(Language,sep=";")
 l18 <- df18 %>% select(id,year,Language) %>% separate_rows(Language,sep=";")
 
 langFrame <- rbind(l17,l18)
+langFrame <- langFrame %>% mutate(Language = str_trim(Language))
 
 
 #### Developer Type ####
@@ -14,12 +15,27 @@ dev17 <- df17 %>% select(id,year,DevType) %>% separate_rows(DevType,sep=";")
 dev18 <- df18 %>% select(id,year,DevType) %>% separate_rows(DevType,sep=";")
 
 devFrame <- rbind(dev17,dev18)
+devFrame <- devFrame %>% mutate(DevType = str_trim(DevType)) %>%
+            mutate(DevType = case_when(
+              grepl("Embed",        DevType) ~ "Embedded Devices developer",
+              grepl("^Mob",         DevType) ~ "Mobile Developer",
+              grepl("^Desk",        DevType) ~ "Destop Application developer",
+              grepl("Data [Ss]c",   DevType) ~ "Data Scientist",
+              grepl("statist",      DevType) ~ "Developer with Math Background",
+              grepl("learnin",      DevType) ~ "Machine Learning Engineer",
+              grepl("Database",     DevType) ~ "Database Administrator",
+              grepl("(^Qual)|(QA)", DevType) ~ "Quality Assurance Engineer",
+              grepl("suite",        DevType) ~ "C suite",
+              grepl("analyst",      DevType) ~ "Data Anaylst",
+              TRUE ~ DevType
+            ))
 
 #### Framework ####
 fw17 <- df17 %>% select(id,year,Framework) %>% separate_rows(Framework,sep=";")
 fw18 <- df18 %>% select(id,year,Framework) %>% separate_rows(Framework,sep=";")
 
 fwFrame <- rbind(fw17,fw18)
+fwFrame <- fwFrame %>% mutate(Framework = str_trim(Framework))
 
 
 #### Database ####
@@ -27,6 +43,8 @@ db17 <- df17 %>% select(id,year,Database) %>% separate_rows(Database,sep=";")
 db18 <- df18 %>% select(id,year,Database) %>% separate_rows(Database,sep=";")
 
 dbFrame <- rbind(db17,db18)
+dbFrame <- dbFrame %>% mutate(Database = str_trim(Database))
+
 
 #### Drop Columns fixed here ####
 df17 <- df17 %>% select(-c(Language,DevType,Database,Framework,Platform))
@@ -34,5 +52,3 @@ df18 <- df18 %>% select(-c(Language,DevType,Database,Framework,Platform))
 
 
 
-#### Clean ####
-rm(fw17,fw18,l17,l18,dev17,dev18,db17,db18)
