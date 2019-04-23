@@ -33,6 +33,11 @@ RSQLite::dbWriteTable(conn = conn,
              value = fwFrame,
              overwrite=TRUE)
 
+RSQLite::dbWriteTable(conn=conn,
+             name= "platforms",
+             value = platFrame,
+             overwrite=TRUE)
+
 
 
 

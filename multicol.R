@@ -45,6 +45,18 @@ db18 <- df18 %>% select(id,year,Database) %>% separate_rows(Database,sep=";")
 dbFrame <- rbind(db17,db18)
 dbFrame <- dbFrame %>% mutate(Database = str_trim(Database))
 
+#### Platform ####
+p17 <- df17 %>% select(id,year,Platform) %>% separate_rows(Platform,sep=";")
+p18 <- df18 %>% select(id,year,Platform) %>% separate_rows(Platform,sep=";")
+
+platFrame <- rbind(p17,p18)
+platFrame <- platFrame %>% mutate(Platform = str_trim(Platform)) %>% 
+              mutate(Platform = case_when(
+                grepl("AWS",    Platform) ~ "AWS",
+                grepl("Azure",  Platform) ~ "Azure",
+                TRUE ~ Platform
+              ))
+
 
 #### Drop Columns fixed here ####
 df17 <- df17 %>% select(-c(Language,DevType,Database,Framework,Platform))

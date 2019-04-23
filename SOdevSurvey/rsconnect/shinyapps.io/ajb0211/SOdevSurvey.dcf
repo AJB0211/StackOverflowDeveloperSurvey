@@ -1,0 +1,12 @@
+name: SOdevSurvey
+title: SOdevSurvey
+username:
+account: ajb0211
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 883601
+bundleId: 2031524
+url: https://ajb0211.shinyapps.io/SOdevSurvey/
+when: 1555991621.39133
+asMultiple: FALSE
+asStatic: FALSE

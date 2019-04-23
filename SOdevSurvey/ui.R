@@ -19,9 +19,9 @@ shinyUI(dashboardPage(
                #menuSubItem("Job Title",               tabName = "jobTitle")
                
               ),
-      menuItem("Experience", tabName = "exp"#),
-               # menuSubItem("Education",         tabName = "dsEdu"),
-               # menuSubItem("Undergrad Major",   tabName = "dsMajor"),
+      menuItem("Experience", tabName = "exp"),
+               menuSubItem("Education",         tabName = "dsEdu"),
+               menuSubItem("Undergrad Major",   tabName = "dsMajor")#,
                # menuSubItem("Years Coding",      tabName = "dsYearsCoding"),
                # menuSubItem("Years Coding Professionally", tabName = "dsYearsCodingProf")
                ),
@@ -30,11 +30,9 @@ shinyUI(dashboardPage(
                # menuSubItem("Job Search Status",   tabName = "dsSearchStatus"),
                menuSubItem("Time After Bootcamp", tabName = "dsBootcamp")
                ),
-      # menuItem("Job Tech", tabName = "jobTech", 
-      #          menuItem("Languages",  tabName="sLanguages",
-      #                   menuSubItem("R and Python", tabName = "Rpy"),
-      #                   menuSubItem("Scala",        tabName = "Scala")
-      #                   ),
+      menuItem("Job Tech", tabName = "jobTech",
+               menuSubItem("Languages",  tabName="Languages"),
+               menuSubItem("ML Frameworks", tabName = "MLfw")),
       #          menuItem("Frameworks", tabName = "dsFrameworks"),
       #          menuItem("Databases",  tabName = "dsDatabases")
       #          ),
@@ -104,8 +102,8 @@ shinyUI(dashboardPage(
       tabItem(tabName = "dsJobSearch"),
       tabItem(tabName = "dsBootcamp",
               h1("Time After Bootcamp Until Hire"),
-              fluidRow(box(p("Many bootcamp attendees have a job before entering the bootcamp. Of those that do not, a large proportion are found to be hired within the first month after graduation."),
-                           p("This may be due to more proactive bootcamp attendees post on a resource like Stack Overflow")),
+              fluidRow(box(p("Many bootcamp attendees have a job before entering the bootcamp. Of those that do not, a large proportion are found to be hired within the first month after graduation. The next largest proportion are hired in the first three months after graduation."),
+                           p("This may be due to more proactive bootcamp attendees posting on a resource like Stack Overflow.")),
                        box(htmlOutput("dsBootRateBox"))),
               fluidRow(box(htmlOutput("dsBootcamp"), width = 750))
               ),
@@ -116,11 +114,14 @@ shinyUI(dashboardPage(
       tabItem(tabName = "jobTech",
               "Languages, platforms, databases, and frameworks"),
       tabItem(tabName = "Languages",
-              "Language Plot here"),
-      tabItem(tabName = "Rpy",
-              "R and python stuff here"),
-      tabItem(tabName = "Scala",
-              "Scala stuff here"),
+              h1("Language Frequencies for Data Scientists"),
+              p("Python is by far the most common language followed by R, however a dominant quantity of data scientists who use R also use Python while the converse is not true. Scala lags behind both other languages observed for data science use"),
+              fluidRow(box(htmlOutput("langBar"),width=500,height=500))),
+      tabItem(tabName = "MLfw",
+              h1("Machine Learning Frameworks"),
+              p("Interestingly, nothing was included referencing Amazon's Sagemaker and Microsoft's Azure Machine Learning. Additionally, Theano and Keras were not mentioned nor were the significant libraries in SKlearn included. Spark has some native ML capabilities as well."),
+              p("Plot Tensorflow vs. Pytorch here")
+      ),
       
       
       #### Compensation #### 
@@ -128,13 +129,14 @@ shinyUI(dashboardPage(
               "Salary, currency and the correlations"),
       tabItem(tabName = "dsSalary",
               h1("Salary of Data Scientists Compared to Subsample"),
-              p("Data Scientists make more than the average respondent by about $10k on average"),
+              p("Data Scientists make more than the average respondent by about $4k on average"),
               p("Note that there was some filtering involved in achieving this answer due to irregularities in a lot of responses. Possible reasons include incorrect currency type, prorating incomplete year employment, and graduate students."),
+              p("The distribution for data scientists is bimodal, skew right while the overall population is trimodal. It is possible t-tests are not valid for these distributions."),
               fluidRow(box(htmlOutput("meanSal"))),
               fluidRow(box(htmlOutput("dsMeanSal"))),
               fluidRow(box(htmlOutput("salpval"))),
               p("Red is population, blue is data scientists"),
-              box(plotOutput("salaryDensity"), width = 500, height = 500)
+              fluidRow(box(plotOutput("salaryDensity"), width = 500, height = 500))
               ),
       
       

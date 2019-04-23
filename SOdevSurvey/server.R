@@ -13,11 +13,11 @@ shinyServer(function(input, output, session) {
   
   mainDF <- dbReadTable(conn,"master")
   dsIds <- dbGetQuery(conn,
-                      'SELECT id FROM devtypes
-	                     GROUP BY id
-	                     HAVING DevType = "Data Scientist" or 
+                      'SELECT distinct(id) FROM devtypes
+	                     WHERE id IN (SELECT id FROM devtypes
+                       WHERE DevType = "Data Scientist" or 
                        DevType = "Machine Learning Engineer" or 
-                       DevType = "Data Analyst";')
+                       DevType = "Data Analyst");')
   
   output$yearHist <- renderGvis( mainDF %>% group_by(year) %>% summarize(count = n()) %>% mutate(year = as.character(year)) %>% 
                                    gvisColumnChart("year","count", options = list(
@@ -63,13 +63,18 @@ shinyServer(function(input, output, session) {
   subDF <- mainDF %>% filter(Employment=="full-time" & Country == "United States")
   
   PythonIds <- as.data.frame(dbGetQuery(conn,
-                                        'SELECT id FROM languages
-                                         GROUP BY id
-                                         HAVING `Language` = "Python"'))
+                                        'SELECT distinct(id) FROM `languages`
+                                        WHERE id IN (
+                                        SELECT id from `languages` WHERE `Language` = "Python");'))
   RIds <- as.data.frame(dbGetQuery(conn,
-                                   'SELECT id FROM languages
-                                         GROUP BY id
-                                         HAVING `Language` = "R"'))
+                                   'SELECT distinct(id) FROM `languages`
+                                   WHERE id IN (
+                                   SELECT id from `languages` WHERE `Language` = "R");'))
+  
+  ScalaIds <- as.data.frame(dbGetQuery(conn,
+                                       'SELECT distinct(id) FROM `languages`
+                                        WHERE id IN (
+                                        SELECT id from `languages` WHERE `Language` = "Scala");'))
   
   DSframe <- inner_join(mainDF,dsIds,by=c("id","id"))
   
@@ -122,10 +127,32 @@ shinyServer(function(input, output, session) {
                                         )
 
   
+  RDSframe <- inner_join(RIds,dsIds,by=c("id","id"))
+  #print(head(RDSframe))
+    
+    
+  pyDSframe <- inner_join(PythonIds,dsIds, by=c("id","id"))
+  #print(head(RDSframe))
+  
+  RPyframe <- inner_join(pyDSframe,RDSframe,by=c("id","id"))
+  
+  Scalaframe <- inner_join(ScalaIds,dsIds,by=c("id","id"))
+  
+  Rcount <-    RDSframe  %>% summarize(count = n()) %>% mutate(Language ="R")
+  pyCount <-   pyDSframe %>% summarize(count = n()) %>% mutate(Language="Python")
+  bothCount <- RPyframe  %>% summarize(count = n()) %>% mutate(Language="R and Python")
+  scalaCount <-Scalaframe %>% summarize(count=n()) %>% mutate(Language="Scala")
+  
+  RPyAmm <- rbind(Rcount,pyCount,bothCount,scalaCount)
   
   
-  
-  
+  output$langBar <- renderGvis( RPyAmm %>% gvisColumnChart("Language","count",options=list(
+                                                            legend="none",
+                                                            title = "Frequency of Language Use Among Data Scientists",
+                                                            hAxis = "{'title': 'Language'}",
+                                                            height= 400,
+                                                            chartArea = "{'height':'70%'}"
+                                                          )))
   
   
   

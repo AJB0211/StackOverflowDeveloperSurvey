@@ -3,3 +3,5 @@ data/
 SOdevSurvey.db
 
 SOdevSurvey/SOdevSurvey.db
+
+*.db
