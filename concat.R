@@ -3,7 +3,7 @@ suppressMessages(suppressWarnings(library(tidyverse)))
 
 
 
-yrs <- c(df17,df18)
+#yrs <- c(df17,df18)
 xFrame <- rbind(df17,df18)
 
 
@@ -12,4 +12,4 @@ xFrame <- rbind(df17,df18)
 
 
 
-rm(df17,df18,yrs)
+rm(df17,df18)

@@ -24,7 +24,7 @@ RSQLite::dbWriteTable(conn = conn,
              overwrite=TRUE)
 
 RSQLite::dbWriteTable(conn = conn,
-             name = "database",
+             name = "databases",
              value = dbFrame,
              overwrite=TRUE)
 

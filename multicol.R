@@ -35,7 +35,11 @@ fw17 <- df17 %>% select(id,year,Framework) %>% separate_rows(Framework,sep=";")
 fw18 <- df18 %>% select(id,year,Framework) %>% separate_rows(Framework,sep=";")
 
 fwFrame <- rbind(fw17,fw18)
-fwFrame <- fwFrame %>% mutate(Framework = str_trim(Framework))
+fwFrame <- fwFrame %>% mutate(Framework = str_trim(Framework)) %>% 
+          mutate(Framework = case_when(
+            grepl("Torch",   Framework) ~ "Pytorch",
+            TRUE ~ Framework
+          ))
 
 
 #### Database ####
@@ -54,6 +58,7 @@ platFrame <- platFrame %>% mutate(Platform = str_trim(Platform)) %>%
               mutate(Platform = case_when(
                 grepl("AWS",    Platform) ~ "AWS",
                 grepl("Azure",  Platform) ~ "Azure",
+                grepl("Linux",  Platform) ~ "Linux",
                 TRUE ~ Platform
               ))
 
