@@ -7,7 +7,7 @@ setwd("~/Documents/NYCDSA/projects/R_shiny/")
 
 ## This file sources other data workup procedures and produces and SQLite database for use by Shiny
 source("import.R")
-rm(s17,s18,s16,ex18,ex17)
+rm(s17,s18,ex18,ex17)
 
 #source("impute.R")
 

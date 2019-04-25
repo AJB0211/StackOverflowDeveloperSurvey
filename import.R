@@ -3,7 +3,7 @@ suppressMessages(suppressWarnings(library(tidyverse)))
 #### READ ####
 s18 <- read.csv("./data/2018/survey_results_public.csv")
 s17 <- read.csv("./data/2017/survey_results_public.csv")
-s16 <- read.csv("./data/2016/2016 Stack Overflow Survey Responses.csv")
+#s16 <- read.csv("./data/2016/2016 Stack Overflow Survey Responses.csv")
 ex18 <- read.csv("./data/2018/survey_results_schema.csv", header=F)
 ex17 <- read.csv("./data/2017/survey_results_schema.csv", header=F)
 

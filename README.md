@@ -1,9 +1,16 @@
 # StackOverflowDeveloperSurvey
 This analysis explores the annual Stack Overflow Developer survey data published by the popular resource [Stack Overflow](https://insights.stackoverflow.com/survey/?utm_source=so-owned&utm_medium=blog&utm_campaign=dev-survey-2019&utm_content=launch-blog), one of the largest surveys of those who work with software. Emphasis is placed on topics data scientists including languages, salaries, platforms, and their relationship with other job types listed in these surveys. 
 
+The file `workup.R` is the master file for data processing that sources other scripts contained in the library. To use this repo, edit the directory to reflect the local directory the repo is cloned to and uncomment `source("download.R")`. Then run `source("workup.R")`.
+
+## v1.7
+  * Added notes for usability
+  * Cleared out loading then immediately cleaning up unused data sets
+
 
 ## v1.6
   * Added some notes for sharing
+  * Removed local cache files from repo
 
 ## v1.5
   * Added frameworks
