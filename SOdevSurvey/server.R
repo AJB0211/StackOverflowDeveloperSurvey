@@ -92,7 +92,8 @@ shinyServer(function(input, output, session) {
   
   isDSrate <- isDSframe %>% summarize(rDS = mean(isDS))
   
-  output$DSrateBox <- renderInfoBox(infoBox("Rate of Data Scientists", isDSrate$rDS, icon=icon("calculator"), fill=F))
+  output$DSrateBox <- renderInfoBox(infoBox("Percentage of Data Scientists", paste0(as.character(100*round(isDSrate$rDS,4),"%")), 
+                                                                                          icon=icon("calculator"), fill=F))
   
   
   
@@ -137,9 +138,9 @@ shinyServer(function(input, output, session) {
   salTest <- t.test(x= (subDF %>% filter(Salary > 25000))$Salary, y= (DSsubframe %>% filter(Salary>25000))$Salary)
   #print(salTest)
   
-  output$meanSal <- renderInfoBox(infoBox("Mean Salary of Respondents", meanSal, icon=icon("dollar-sign"), fill=F))
-  output$dsMeanSal <- renderInfoBox(infoBox("Mean Salary of Data Scientist", meanDSsal, icon=icon("dollar-sign"), fill=F))
-  output$salpval <- renderInfoBox(infoBox("p-value of t-test", salTest$p.value, icon=icon("calculator"), fill=F))
+  output$meanSal <- renderInfoBox(infoBox("Mean Salary of Respondents", round(meanSal,0), icon=icon("dollar-sign"), fill=F))
+  output$dsMeanSal <- renderInfoBox(infoBox("Mean Salary of Data Scientist", round(meanDSsal,0), icon=icon("dollar-sign"), fill=F))
+  output$salpval <- renderInfoBox(infoBox("p-value of t-test", round(salTest$p.value,5), icon=icon("calculator"), fill=F))
   
   output$salaryDensity <- renderPlot( ggplot() + geom_density(data = subDF %>% filter(Salary>25000), aes(x= as.numeric(Salary)), fill="red", alpha=0.7) + 
                                         geom_density(data = DSsubframe %>% filter(Salary>25000),aes(x=as.numeric(Salary)), fill="blue",alpha=0.5) + xlim(0,3E5)+

@@ -1,5 +1,10 @@
 
 setwd("~/Documents/NYCDSA/projects/R_shiny/")
+
+# Download data sets for reproducability
+# source("download.R")
+
+
 ## This file sources other data workup procedures and produces and SQLite database for use by Shiny
 source("import.R")
 rm(s17,s18,s16,ex18,ex17)

@@ -5,3 +5,7 @@ SOdevSurvey.db
 SOdevSurvey/SOdevSurvey.db
 
 *.db
+
+*.RData
+
+*.Rhistory

@@ -2,7 +2,8 @@
 This analysis explores the annual Stack Overflow Developer survey data published by the popular resource [Stack Overflow](https://insights.stackoverflow.com/survey/?utm_source=so-owned&utm_medium=blog&utm_campaign=dev-survey-2019&utm_content=launch-blog), one of the largest surveys of those who work with software. Emphasis is placed on topics data scientists including languages, salaries, platforms, and their relationship with other job types listed in these surveys. 
 
 
-
+## v1.6
+  * Added some notes for sharing
 
 ## v1.5
   * Added frameworks
