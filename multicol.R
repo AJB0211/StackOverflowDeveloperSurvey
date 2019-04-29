@@ -26,7 +26,7 @@ devFrame <- devFrame %>% mutate(DevType = str_trim(DevType)) %>%
               grepl("Database",     DevType) ~ "Database Administrator",
               grepl("(^Qual)|(QA)", DevType) ~ "Quality Assurance Engineer",
               grepl("suite",        DevType) ~ "C suite",
-              grepl("analyst",      DevType) ~ "Data Anaylst",
+              grepl("analyst",      DevType) ~ "Data Analyst",
               TRUE ~ DevType
             ))
 

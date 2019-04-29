@@ -32,7 +32,7 @@ shinyUI(dashboardPage(
       menuItem("Job Tech", tabName = "jobTech",
                menuSubItem("Languages",  tabName="Languages"),
                menuSubItem("ML Frameworks", tabName = "MLfw")),
-      #          menuItem("Frameworks", tabName = "dsFrameworks"),
+               #menuItem("Frameworks", tabName = "dsFrameworks")),
       #          menuItem("Databases",  tabName = "dsDatabases")
       #          ),
       menuItem("Compensation", tabName = "comp",
@@ -82,7 +82,7 @@ shinyUI(dashboardPage(
       tabItem(tabName = "Employment",
               h1("Employment Types"),
               p("We see that the majority of respondents are employed full time. Beyond eliminating confounding variables, the Employment type relevant to the interests of this study is full-time so we filter our dataset on this variable"),
-              fluidRow(box(htmlOutput("employmentChart")))
+              fluidRow(box(plotOutput("employmentChart"),height=550))
               ),
       tabItem(tabName = "country",
               h1("Country"),
@@ -99,10 +99,15 @@ shinyUI(dashboardPage(
               "Education, undergrad, yearscoding, yearscodingprof"),
       tabItem(tabName = "dsEdu",
               h1("Degree"),
-              fluidRow(box(htmlOutput("dsEduChart"), width = 750,height = 800))),
+              p("Data scientists largely have at least a Bachelor's degree at elevated rates compared to the overall US population. Additionally, a greater proportion of these degrees are graduate degrees."),
+              fluidRow(box(plotOutput("dsEduChart"), width = 300,height = 500)),
+              fluidRow(box(plotOutput("dsEduRateChart"), width = 300, height = 500)),
+              p(a("US Census data from census.gov"),href="https://www.census.gov/data/tables/2016/demo/education-attainment/cps-detailed-tables.html")
+              ),
       tabItem(tabName = "dsMajor",
               h1("Major"),
-              fluidRow(box(htmlOutput("dsMajorChart"), width = 750,height = 500))),
+              p("Data scientists come predominantly from a Computer Science background but are overall mostly drawn from STEM fields."),
+              fluidRow(box(plotOutput("dsMajorChart"), width = 300,height = 500))),
       
       #### Job Search ####
       tabItem(tabName = "hire"),
@@ -113,7 +118,7 @@ shinyUI(dashboardPage(
               fluidRow(box(p("Many bootcamp attendees have a job before entering the bootcamp. Of those that do not, a large proportion are found to be hired within the first month after graduation. The next largest proportion are hired in the first three months after graduation."),
                            p("This may be due to more proactive bootcamp attendees posting on a resource like Stack Overflow.")),
                        box(htmlOutput("dsBootRateBox"))),
-              fluidRow(box(htmlOutput("dsBootcamp")))
+              fluidRow(box(plotOutput("dsBootcamp")))
               ),
       
       
@@ -123,13 +128,18 @@ shinyUI(dashboardPage(
               "Languages, platforms, databases, and frameworks"),
       tabItem(tabName = "Languages",
               h1("Language Frequencies for Data Scientists"),
-              p("Python is by far the most common language followed by R, however a dominant quantity of data scientists who use R also use Python while the converse is not true. Scala lags behind both other languages observed for data science use"),
-              fluidRow(box(htmlOutput("langBar"),height=500))),
+              fluidRow(
+              box(p("Languages usage is defined by respondent who reported they used the language in their job role."),
+                  p("Python is by far the most common language followed by R, however a dominant quantity of data scientists who use R also use Python while the converse is not true. Scala lags behind both other languages observed for data science use."),
+                  p("Surprisingly only a bit more than half of data scientists reported using SQL in their job role")),
+              box(htmlOutput("dsSQLbox"))),
+              fluidRow(box(plotOutput("langBar"),height=500),
+                       box(plotOutput("SQLbar"),height=500))),
       tabItem(tabName = "MLfw",
               h1("Machine Learning Frameworks"),
               p("Interestingly, nothing was included referencing Amazon's Sagemaker and Microsoft's Azure Machine Learning. Additionally, Theano and Keras were not mentioned nor were the significant libraries in SKlearn included. Spark has some native ML capabilities as well."),
               p("The chart below shows TensorFlow is far preferred to Pytorch, with most Pytorch users also knowing TensorFlow anyways."),
-              fluidRow(box(htmlOutput("mlBar"), height = 500))
+              fluidRow(box(plotOutput("mlBar"), height = 500))
       ),
       
       
@@ -217,9 +227,9 @@ shinyUI(dashboardPage(
               p("Consequently these values are stored in the following tables:"),
               tags$div(
                 tags$ul(
-                  tags$li("languages  - programming languages"),
-                  tags$li("frameworks - frameworks for working with data such as tensorflow or AWS"),
-                  tags$li("platforms  - physical platforms such as Windows Desktops or Gaming Consoles"),
+                  tags$li("languages  - Programming languages"),
+                  tags$li("frameworks - Frameworks for working with data such as TensorFlow or AWS"),
+                  tags$li("platforms  - Physical platforms for deployment such as Windows Desktops or Gaming Consoles"),
                   tags$li("databases  - SQL, MongoDB, Hive...")
                 ))
               )

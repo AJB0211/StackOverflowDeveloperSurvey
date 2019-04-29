@@ -3,10 +3,19 @@ This analysis explores the annual Stack Overflow Developer survey data published
 
 The file `workup.R` is the master file for data processing that sources other scripts contained in the library. To use this repo, edit the directory to reflect the local directory the repo is cloned to and uncomment `source("download.R")`. Then run `source("workup.R")`.
 
+
+## v2.0
+  * Pushed to shinyapp.io
+
+## v1.8
+  * Included SQL information in languages tab
+  * Fixed critical typo in "Data Analyst" role cleaning
+  * Transferred graphs from gVis to ggplot
+  * Added US census data for degree levels
+
 ## v1.7
   * Added notes for usability
   * Cleared out loading then immediately cleaning up unused data sets
-
 
 ## v1.6
   * Added some notes for sharing
