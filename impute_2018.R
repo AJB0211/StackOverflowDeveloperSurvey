@@ -1,6 +1,5 @@
 suppressMessages(suppressWarnings(library(tidyverse)))
 ## This script handles the imputation and modification of data
-print("Running impute.R: data imputation")
 
 
 df18 <- s18 %>% mutate(

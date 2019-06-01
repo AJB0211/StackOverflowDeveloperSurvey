@@ -9,3 +9,9 @@ SOdevSurvey/SOdevSurvey.db
 *.RData
 
 *.Rhistory
+
+.Rproj.user/
+
+R_shiny.Rproj
+
+checkpoint/

@@ -1,12 +1,11 @@
 library(RSQLite)
 
-
 # start connection
-conn <- RSQLite::dbConnect(drv=SQLite(), dbname = "./SOdevSurvey/SOdevSurvey.db")
+dbPath <- file.path("SOdevSurvey/SOdevSurvey.db")
+conn <- RSQLite::dbConnect(drv=SQLite(), dbname = dbPath)
 
 
 # write tables
-
 RSQLite::dbWriteTable(conn = conn,
              name = "master",
              value = xFrame,
@@ -39,8 +38,6 @@ RSQLite::dbWriteTable(conn=conn,
              overwrite=TRUE)
 
 
-
-
 # close connection
 RSQLite::dbDisconnect(conn)
-
+rm(dbPath)

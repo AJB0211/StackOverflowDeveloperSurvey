@@ -1,7 +1,6 @@
 suppressMessages(suppressWarnings(library(tidyverse)))
 ## This script manages columns where data is stored in a concatenated string over multiple values
 
-
 #### Language ####
 l17 <- df17 %>% select(id,year,Language) %>% separate_rows(Language,sep=";")
 l18 <- df18 %>% select(id,year,Language) %>% separate_rows(Language,sep=";")
