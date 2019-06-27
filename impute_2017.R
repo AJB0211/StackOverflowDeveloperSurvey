@@ -23,6 +23,7 @@ df17 <- s17 %>% mutate(
                         grepl("^Mas",  FormalEducation) ~ "Master's",
                         grepl("^Sec",  FormalEducation) ~ "Secondary",
                         grepl("^Prof", FormalEducation) ~ "Professional",
+                        grepl("^Pri",  FormalEducation) ~ "Primary",
                         grepl("^Doc",  FormalEducation) ~ "Doctoral",
                         grepl("never", FormalEducation) ~ "None",
                         TRUE ~ NA_character_),     
@@ -104,16 +105,18 @@ df17 <- s17 %>% mutate(
                               grepl("interest", JobSeekingStatus) ~ "Uninterested",
                               grepl("job$",     JobSeekingStatus) ~ "Active",
                               TRUE ~ NA_character_),
-  
+  DataScientist = grepl("(machine)|(analyst)",DeveloperType), ### Match "data scientist or machine learning specialist"
+  Age = NA_character_,
   Salary=round(as.numeric(Salary))
   
 ) %>% 
   select(id,year,
          Country, Student, Education, Undergrad, Employment, YearsCoding, YearsCodingProf,
-         JobYear, JobSearchStatus, TimeAfterBootcamp,
+         JobYear, JobSearchStatus, TimeAfterBootcamp, DataScientist,
          DevType = DeveloperType, Language = HaveWorkedLanguage, #NonDevType = NonDeveloperType,  
          Platform = HaveWorkedPlatform, Database = HaveWorkedDatabase, Framework = HaveWorkedFramework,
-         Salary, Currency,
-         EducationParents, Sex)
-
-
+         Salary, 
+         EducationParents, Age, Sex
+  ) %>% 
+  mutate(Age = case_when(grepl("^65", Age) ~ "^65+",
+                         TRUE ~ Age))

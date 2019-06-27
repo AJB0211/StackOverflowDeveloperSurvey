@@ -23,6 +23,7 @@ df18 <- s18 %>% mutate(
                         grepl("^Mas",  FormalEducation) ~ "Master's",
                         grepl("^Sec",  FormalEducation) ~ "Secondary",
                         grepl("^Prof", FormalEducation) ~ "Professional",
+                        grepl("^Pri",  FormalEducation) ~ "Primary",
                         grepl("^Oth",  FormalEducation) ~ "Doctoral",
                         grepl("never", FormalEducation) ~ "None",
                         TRUE ~ NA_character_),
@@ -92,8 +93,13 @@ df18 <- s18 %>% mutate(
 ) %>% 
   select(id, year,
          Country, Student, Education, Undergrad, Employment, YearsCoding, YearsCodingProf, 
-         JobYear, JobSearchStatus,TimeAfterBootcamp,
+         JobYear, JobSearchStatus,TimeAfterBootcamp, DataScientist,
          DevType, Language =  LanguageWorkedWith, Platform = PlatformWorkedWith, Database = DatabaseWorkedWith, Framework = FrameworkWorkedWith,
-         Salary, Currency, #ConvertedSalary, SalaryType, 
-         EducationParents, Sex)
+         Salary, #ConvertedSalary, SalaryType, 
+         EducationParents, Age, Sex
+         ) %>% 
+  mutate(Age = case_when(grepl("^65", Age) ~ "^65+",
+                         TRUE ~ Age))
+
+
 

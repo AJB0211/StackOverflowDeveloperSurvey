@@ -5,6 +5,8 @@ The file `workup.R` is the master file for data processing that sources other sc
 
 
 
+## V2.2
+  * Finished integrating 2019 dataset
 
 ## v2.1
   * Restructured workup files
